@@ -25,6 +25,7 @@ import javax.faces.convert.FacesConverter;
 import modelo.Cliente;
 import modelo.Encuesta;
 import modelo.EncuestaPreguntas;
+import modelo.Municipio;
 import modelo.ParametrosMedicion;
 import modelo.PreguntasParametrosMedicion;
 import modelo.Respuesta;
@@ -35,10 +36,6 @@ import modelo.ServicioForense;
 @SessionScoped
 public class MuestraController implements Serializable {
 
-    
-    
-
-    
     @EJB
     private fachada.MuestraFacade ejbFacade;
     @EJB //EJB para mandar los datos al facade de Respuesta y ser guardados
@@ -62,6 +59,7 @@ public class MuestraController implements Serializable {
     private Cliente idcliente;
     private Date fecharealizacion;
     private Seccional idseccional;
+    private Municipio idmunicipio;
     private ParametrosMedicion parametromedicion;//este atributo guarda el parametro de medición que seleccionen
     //Atributo de tipo respuesta, para poder almacenar los datos del modelo respuesta (Fecha realizacion encuesta,Cliente,Seccional)
     private Respuesta selectedr;
@@ -137,6 +135,15 @@ public class MuestraController implements Serializable {
     public void setIdseccional(Seccional idseccional) {
         this.idseccional = idseccional;
     }
+    
+    public Municipio getIdmunicipio() {
+        return idmunicipio;
+    }
+
+    public void setIdmunicipio(Municipio idmunicipio) {
+        this.idmunicipio = idmunicipio;
+    }
+    
     
     public String getIdPregunta() {
         return idPregunta;
@@ -353,6 +360,7 @@ public class MuestraController implements Serializable {
         System.out.println(""+fecharealizacion);
         System.out.println(""+idseccional);
         System.out.println(""+idcliente);
+        System.out.println(""+idmunicipio);
     }
     
     public void addMessage(String summary) {
@@ -367,6 +375,7 @@ public class MuestraController implements Serializable {
        a.setCLIENTEidCLIENTE(idcliente);
        a.setSECCIONALidSECCIONAL(idseccional);
        a.setPARAMETROSMEDICIONidPARAMETROSMEDICION(parametromedicion);
+       a.setMUNICIPIOidMUNICIPIO(idmunicipio);
        a.setFechaRealizacion(fecharealizacion);
        a.setENCUESTAPREGUNTASidENCUESTAPREGUNTAS(getItemsidEncuestaPreguntas());
        ejbRespuestaFacade.create(a);

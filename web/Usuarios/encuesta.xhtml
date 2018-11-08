@@ -62,6 +62,13 @@
                 <p:panelGrid columns="2" >
                         <p:outputLabel value="#{bundle.fechaRealizacion}" for="fechaRealizacion" />
                         <p:calendar id="fechaRealizacion" pattern="MM/dd/yyyy" value="#{muestraController.fecharealizacion}" showOn="button" required="true" requiredMessage="#{bundle.RequiredMessage}"/>
+                        <p:outputLabel value="#{bundle.Municipio}" for="MUNICIPIOidMUNICIPIO" />
+                        <p:selectOneMenu id="MUNICIPIOidMUNICIPIO" value="#{muestraController.idmunicipio}" required="true" requiredMessage="#{bundle.RequiredMessage}">
+                            <f:selectItem itemLabel="Seleccione uno" />
+                            <f:selectItems value="#{municipioController.itemsAvailableSelectOne}"
+                                           var="MUNICIPIOidMUNICIPIOItem"
+                                           itemValue="#{MUNICIPIOidMUNICIPIOItem}"/>
+                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.Servicio_Forense}" for="SERVICIOFORENSEidSERVICIOFORENSE"  />
                         <p:selectOneMenu id="SERVICIOFORENSEidSERVICIOFORENSE" value="#{muestraController.servicio}" required="true" requiredMessage="#{bundle.RequiredMessage}" >
                             <f:selectItem itemLabel="Seleccione uno" />
