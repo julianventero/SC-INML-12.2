@@ -27,8 +27,16 @@ public class PreguntasController implements Serializable {
     private fachada.PreguntasFacade ejbFacade;
     private List<Preguntas> items = null;
     private Preguntas selected;
-
+    
+    
+    
+    @EJB
+    private fachada.PreguntasFacade ejbFacadePreguntas;
+    private List<Preguntas> ItemsPreguntas;
+    private Preguntas selectedPreguntas;
+    
     public PreguntasController() {
+        
     }
 
     public Preguntas getSelected() {
@@ -56,18 +64,18 @@ public class PreguntasController implements Serializable {
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("PreguntasCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("Created"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("PreguntasUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("Updated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("PreguntasDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("Deleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
@@ -162,4 +170,20 @@ public class PreguntasController implements Serializable {
 
     }
 
+    public fachada.PreguntasFacade getEjbFacadePreguntas() {
+        return ejbFacadePreguntas;
+    }
+
+    public List<Preguntas> getItemsPreguntas() {
+        if (ItemsPreguntas == null) {
+            ItemsPreguntas= ejbFacadePreguntas.verPreguntas2(1);
+        }
+            return ItemsPreguntas;
+    }
+    
+    public Preguntas getSelectedPreguntas() {
+        return selectedPreguntas;
+    }
+
+    
 }

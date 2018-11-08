@@ -136,7 +136,7 @@ public class Municipio implements Serializable {
 
     @Override
     public String toString() {
-        return "modelo.Municipio[ idMUNICIPIO=" + idMUNICIPIO + " ]";
+        return nombre;
     }
     
 }

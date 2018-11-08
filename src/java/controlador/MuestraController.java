@@ -1,11 +1,14 @@
 package controlador;
 
+import static com.sun.javafx.logging.PulseLogger.addMessage;
 import modelo.Muestra;
 import controlador.util.JsfUtil;
 import controlador.util.JsfUtil.PersistAction;
+import fachada.EncuestaFacade;
 import fachada.MuestraFacade;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -14,19 +17,169 @@ import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import modelo.Cliente;
+import modelo.Encuesta;
+import modelo.EncuestaPreguntas;
+import modelo.ParametrosMedicion;
+import modelo.PreguntasParametrosMedicion;
+import modelo.Respuesta;
+import modelo.Seccional;
+import modelo.ServicioForense;
 
 @Named("muestraController")
 @SessionScoped
 public class MuestraController implements Serializable {
 
+    
+    
+
+    
     @EJB
     private fachada.MuestraFacade ejbFacade;
+    @EJB //EJB para mandar los datos al facade de Respuesta y ser guardados
+    private fachada.RespuestaFacade ejbRespuestaFacade;
+    @EJB//EJB para tarer el nombre de la encuesta de acuerdo al servico forense seleccionado
+    private fachada.EncuestaFacade ejbFacadeEncuesta;
     private List<Muestra> items = null;
+    //este atributo es para cuando registran una muestra estadistica
     private Muestra selected;
+    //este atributo es para cuando van a registrar las respuestas de la encuesta, almacenar el id de la encuesta y poder traer las preguntas
+    private Muestra selected2;
+    private Encuesta Encuesta;
+    private ServicioForense servicio;
+    private List<Encuesta> encuestas;
+    private String idPregunta;
+    //Atributo para traer el id Encuesta_Preguntas de cada pregunta que seleccionen y guardarlo en Respuestas
+    private EncuestaPreguntas ItemsidEncuestaPreguntas;
+    
+    
+    //Atributos para almacenar los datos del modelo respuesta(Fecha realizacion encuesta,Cliente,Seccional) y se guarden
+    private Cliente idcliente;
+    private Date fecharealizacion;
+    private Seccional idseccional;
+    private ParametrosMedicion parametromedicion;//este atributo guarda el parametro de medición que seleccionen
+    //Atributo de tipo respuesta, para poder almacenar los datos del modelo respuesta (Fecha realizacion encuesta,Cliente,Seccional)
+    private Respuesta selectedr;
+
+    //EJB PARA TRAERME LAS PREGUNTAS RESPECTO A LA ENCUESTA QUE SELECCIONEN
+    @EJB
+    private fachada.EncuestaPreguntasFacade ejbFacadeEncuestaPreguntas;
+    private List<EncuestaPreguntas> ItemsEncuestaPreguntas;
+    private EncuestaPreguntas selectedEncuestaPreguntas;
+    //EJB PARA TRAER LOS PARAMETROS DE MEDICION RESPECTO A LAS PREGUNTAS
+    @EJB
+    private fachada.ParametrosMedicionFacade ejbFacadeParametrosMedicionFacade;
+    private List<ParametrosMedicion> ItemsParametrosMedicion;
+    private ParametrosMedicion selectedParametrosMedicion;
+
+    //Metodo para traer el ID de la tabla EncuestaPreguntas,de cada pregunta que seleccionen en la tabla
+    public EncuestaPreguntas getItemsidEncuestaPreguntas() {
+        try{
+        ItemsidEncuestaPreguntas=ejbFacadeEncuestaPreguntas.traerIdEncuestaPreguntas(Encuesta.getIdENCUESTA(), idPregunta);
+        System.out.println(""+ItemsidEncuestaPreguntas);
+        }
+        catch(Exception e){
+        }
+        return ItemsidEncuestaPreguntas;
+    }
+
+    //METODOS DEL EJB PARA TRAERME LAS PREGUNTAS RESPECTO A LA ENCUESTA QUE SELECCIONEN
+    public fachada.EncuestaPreguntasFacade getEjbFacadeEncuestaPreguntas() {
+        return ejbFacadeEncuestaPreguntas;
+    }
+    
+    public List<EncuestaPreguntas> getItemsEncuestaPreguntas() {
+        if (ItemsEncuestaPreguntas == null) {
+            try{
+            ItemsEncuestaPreguntas = ejbFacadeEncuestaPreguntas.verPreguntas(Encuesta.getIdENCUESTA());
+            }
+            catch (Exception e) {
+
+        }
+        }
+        return ItemsEncuestaPreguntas;
+    }
+    
+    public EncuestaPreguntas getSelectedEncuestaPreguntas() {
+        return selectedEncuestaPreguntas;
+    }
+    
+    //METODOS DEL EJB PARA TRAER LOS PARAMETROS DE MEDICION RESPECTO A LA PREGUNTA QUE SELECCIONEN
+    public fachada.ParametrosMedicionFacade getEjbFacadeParametrosMedicionFacade() {
+        return ejbFacadeParametrosMedicionFacade;
+    }
+
+    public Cliente getIdcliente() {
+        return idcliente;
+    }
+
+    public void setIdcliente(Cliente idcliente) {
+        this.idcliente = idcliente;
+    }
+
+    public Date getFecharealizacion() {
+        return fecharealizacion;
+    }
+
+    public void setFecharealizacion(Date fecharealizacion) {
+        this.fecharealizacion = fecharealizacion;
+    }
+
+    public Seccional getIdseccional() {
+        return idseccional;
+    }
+
+    public void setIdseccional(Seccional idseccional) {
+        this.idseccional = idseccional;
+    }
+    
+    public String getIdPregunta() {
+        return idPregunta;
+    }
+    
+    public ParametrosMedicion getParametromedicion() {
+        return parametromedicion;
+    }
+
+    public void setParametromedicion(ParametrosMedicion parametromedicion) {
+        this.parametromedicion = parametromedicion;
+    }
+    
+    public Respuesta getSelectedr() {
+        return selectedr;
+    }
+    public void setSelectedr(Respuesta selectedr) {
+        try{
+            this.selectedr = selectedr;
+        }
+        catch(Exception e){
+        }
+    }
+    
+    public void setIdPregunta(String idPregunta) {
+        this.idPregunta = idPregunta;
+        getItemsParametrosMedicion();
+    }
+
+    public List<ParametrosMedicion> getItemsParametrosMedicion() {
+
+        try {
+            ItemsParametrosMedicion = ejbFacadeParametrosMedicionFacade.parametrosXpregunta(idPregunta);
+        } catch (Exception e) {
+
+        }
+
+        return ItemsParametrosMedicion;
+    }
+
+    public ParametrosMedicion getSelectedParametrosMedicion() {
+        return selectedParametrosMedicion;
+    }
 
     public MuestraController() {
     }
@@ -38,7 +191,17 @@ public class MuestraController implements Serializable {
     public void setSelected(Muestra selected) {
         this.selected = selected;
     }
+    
+    //metodos set y get de selected2, para cuando registran 
+    public Muestra getSelected2() {
+        return selected2;
+    }
 
+    public void setSelected2(Muestra selected2) {
+        this.selected2 = selected2;
+    }
+    
+    
     protected void setEmbeddableKeys() {
     }
 
@@ -49,6 +212,10 @@ public class MuestraController implements Serializable {
         return ejbFacade;
     }
 
+    public EncuestaFacade getEjbFacadeEncuesta() {
+        return ejbFacadeEncuesta;
+    }
+
     public Muestra prepareCreate() {
         selected = new Muestra();
         initializeEmbeddableKey();
@@ -56,18 +223,18 @@ public class MuestraController implements Serializable {
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("MuestraCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("Created"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("MuestraUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("Updated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("MuestraDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("Deleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
@@ -79,6 +246,17 @@ public class MuestraController implements Serializable {
             items = getFacade().findAll();
         }
         return items;
+    }
+    //Mando al facade el servicio forense seleccionado, para traer el nombre de la encuesta
+    public List<Encuesta> getEncuestas() {
+        if (servicio != null) {
+            encuestas = ejbFacadeEncuesta.buscarXServicio(servicio.getIdSERVICIOFORENSE().toString());
+        }
+        return encuestas;
+    }
+
+    public void setEncuestas(List<Encuesta> encuestas) {
+        this.encuestas = encuestas;
     }
 
     private void persist(PersistAction persistAction, String successMessage) {
@@ -119,6 +297,14 @@ public class MuestraController implements Serializable {
 
     public List<Muestra> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+
+    public ServicioForense getServicio() {
+        return servicio;
+    }
+
+    public void setServicio(ServicioForense servicio) {
+        this.servicio = servicio;
     }
 
     @FacesConverter(forClass = Muestra.class)
@@ -162,4 +348,39 @@ public class MuestraController implements Serializable {
 
     }
 
+    public void datosRespuesta(){
+        addMessage("Creado correctamente");
+        System.out.println(""+fecharealizacion);
+        System.out.println(""+idseccional);
+        System.out.println(""+idcliente);
+    }
+    
+    public void addMessage(String summary) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary,  null);
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+    
+       
+    public void guardarRespuesta() {
+        
+       Respuesta a=new Respuesta();
+       a.setCLIENTEidCLIENTE(idcliente);
+       a.setSECCIONALidSECCIONAL(idseccional);
+       a.setPARAMETROSMEDICIONidPARAMETROSMEDICION(parametromedicion);
+       a.setFechaRealizacion(fecharealizacion);
+       a.setENCUESTAPREGUNTASidENCUESTAPREGUNTAS(getItemsidEncuestaPreguntas());
+       ejbRespuestaFacade.create(a);
+       
+       
+    }
+
+    public Encuesta getEncuesta() {
+        return Encuesta;
+    }
+
+    public void setEncuesta(Encuesta Encuesta) {
+        this.Encuesta = Encuesta;
+    }
+
+    
 }
