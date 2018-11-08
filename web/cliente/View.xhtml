@@ -11,17 +11,19 @@
         <p:dialog id="ClienteViewDlg" widgetVar="ClienteViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewClienteTitle}">
             <h:form id="ClienteViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{clienteController.selected != null}">
-                        <h:outputText value="#{bundle.ViewClienteLabel_idCLIENTE}"/>
-                        <h:outputText value="#{clienteController.selected.idCLIENTE}" title="#{bundle.ViewClienteTitle_idCLIENTE}"/>
-                        <h:outputText value="#{bundle.ViewClienteLabel_nombre}"/>
-                        <h:outputText value="#{clienteController.selected.nombre}" title="#{bundle.ViewClienteTitle_nombre}"/>
-                        <h:outputText value="#{bundle.ViewClienteLabel_ESTADOidESTADO}"/>
-                        <h:outputText value="#{clienteController.selected.ESTADOidESTADO}" title="#{bundle.ViewClienteTitle_ESTADOidESTADO}"/>
-                        <h:outputText value="#{bundle.ViewClienteLabel_MUNICIPIOidMUNICIPIO}"/>
-                        <h:outputText value="#{clienteController.selected.MUNICIPIOidMUNICIPIO}" title="#{bundle.ViewClienteTitle_MUNICIPIOidMUNICIPIO}"/>
+                    <p:panelGrid columns="2" rendered="#{clienteController.selected != null}" style="margin-bottom:10px">
+                        <h:outputText value="#{bundle.Label_id}"/>
+                        <h:outputText value="#{clienteController.selected.idCLIENTE}" />
+                        <h:outputText value="#{bundle.Label_nombre}"/>
+                        <h:outputText value="#{clienteController.selected.nombre}" />
+                        <h:outputText value="#{bundle.Estado}"/>
+                        <h:outputText value="#{clienteController.selected.ESTADOidESTADO.nombre}" />
+                        <h:outputText value="#{bundle.Municipio}"/>
+                        <h:outputText value="#{clienteController.selected.MUNICIPIOidMUNICIPIO.nombre}" />
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="ClienteViewDialog.hide()"/>
+                    <div id="botones" align="Center">
+                        <p:commandButton value="#{bundle.Close}" onclick="ClienteViewDialog.hide()"/>
+                    </div>  
                 </h:panelGroup>
             </h:form>
         </p:dialog>

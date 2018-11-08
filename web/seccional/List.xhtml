@@ -6,46 +6,34 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
+    <ui:composition template="/template-admin.xhtml">
 
 
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ListSeccionalTitle}"></h:outputText>
-        </ui:define>
-
-        <ui:define name="body">
+        <ui:define name="contenido">
             <h:form id="SeccionalListForm">
-                <p:panel header="#{bundle.ListSeccionalTitle}">
+                <p:panel>
                     <p:dataTable id="datalist" value="#{seccionalController.items}" var="item"
                                  selectionMode="single" selection="#{seccionalController.selected}"
-                                 paginator="true"
+                                 paginator="true" paginatorPosition="bottom"
                                  rowKey="#{item.idSECCIONAL}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 >
+                                 rows="5" >
 
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListSeccionalTitle_idSECCIONAL}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idSECCIONAL}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListSeccionalTitle_nombre}"/>
+                                <h:outputText value="#{bundle.Seccional}"/>
                             </f:facet>
                             <h:outputText value="#{item.nombre}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListSeccionalTitle_REGIONALidREGIONAL}"/>
+                                <h:outputText value="#{bundle.Regional}"/>
                             </f:facet>
-                            <h:outputText value="#{item.REGIONALidREGIONAL}"/>
+                            <h:outputText value="#{item.REGIONALidREGIONAL.nombre}"/>
                         </p:column>
-                        <f:facet name="footer">
+                        <f:facet name="header">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{seccionalController.prepareCreate}" update=":SeccionalCreateForm" oncomplete="PF('SeccionalCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":SeccionalViewForm" oncomplete="PF('SeccionalViewDialog').show()" disabled="#{empty seccionalController.selected}"/>
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":SeccionalEditForm" oncomplete="PF('SeccionalEditDialog').show()" disabled="#{empty seccionalController.selected}"/>

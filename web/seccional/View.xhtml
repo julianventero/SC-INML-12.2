@@ -11,15 +11,17 @@
         <p:dialog id="SeccionalViewDlg" widgetVar="SeccionalViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewSeccionalTitle}">
             <h:form id="SeccionalViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{seccionalController.selected != null}">
-                        <h:outputText value="#{bundle.ViewSeccionalLabel_idSECCIONAL}"/>
-                        <h:outputText value="#{seccionalController.selected.idSECCIONAL}" title="#{bundle.ViewSeccionalTitle_idSECCIONAL}"/>
-                        <h:outputText value="#{bundle.ViewSeccionalLabel_nombre}"/>
-                        <h:outputText value="#{seccionalController.selected.nombre}" title="#{bundle.ViewSeccionalTitle_nombre}"/>
-                        <h:outputText value="#{bundle.ViewSeccionalLabel_REGIONALidREGIONAL}"/>
-                        <h:outputText value="#{seccionalController.selected.REGIONALidREGIONAL}" title="#{bundle.ViewSeccionalTitle_REGIONALidREGIONAL}"/>
+                    <p:panelGrid columns="2" rendered="#{seccionalController.selected != null}" style="margin-bottom:10px">
+                        <h:outputText value="#{bundle.Label_id}"/>
+                        <h:outputText value="#{seccionalController.selected.idSECCIONAL}"/>
+                        <h:outputText value="#{bundle.Label_nombre}"/>
+                        <h:outputText value="#{seccionalController.selected.nombre}" />
+                        <h:outputText value="#{bundle.Regional}"/>
+                        <h:outputText value="#{seccionalController.selected.REGIONALidREGIONAL.nombre}" />
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="SeccionalViewDialog.hide()"/>
+                    <div id="botones" align="Center">
+                        <p:commandButton value="#{bundle.Close}" onclick="SeccionalViewDialog.hide()"/>
+                    </div> 
                 </h:panelGroup>
             </h:form>
         </p:dialog>

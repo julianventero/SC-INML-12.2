@@ -6,46 +6,30 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
+    <ui:composition template="/template-admin.xhtml">
 
 
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ListCriterioTitle}"></h:outputText>
-        </ui:define>
+        
 
-        <ui:define name="body">
+        <ui:define name="contenido">
             <h:form id="CriterioListForm">
-                <p:panel header="#{bundle.ListCriterioTitle}">
+                <p:panel >
                     <p:dataTable id="datalist" value="#{criterioController.items}" var="item"
                                  selectionMode="single" selection="#{criterioController.selected}"
-                                 paginator="true"
+                                 paginator="true"  paginatorPosition="bottom"
                                  rowKey="#{item.idCRITERIO}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 >
+                                 rows="10" >
 
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListCriterioTitle_idCRITERIO}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idCRITERIO}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListCriterioTitle_nombre}"/>
+                                <h:outputText value="#{bundle.Criterio}"/>
                             </f:facet>
                             <h:outputText value="#{item.nombre}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListCriterioTitle_ESTADOidESTADO}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.ESTADOidESTADO}"/>
-                        </p:column>
-                        <f:facet name="footer">
+                        <f:facet name="header" >
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{criterioController.prepareCreate}" update=":CriterioCreateForm" oncomplete="PF('CriterioCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":CriterioViewForm" oncomplete="PF('CriterioViewDialog').show()" disabled="#{empty criterioController.selected}"/>
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":CriterioEditForm" oncomplete="PF('CriterioEditDialog').show()" disabled="#{empty criterioController.selected}"/>

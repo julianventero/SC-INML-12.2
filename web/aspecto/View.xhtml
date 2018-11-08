@@ -11,17 +11,19 @@
         <p:dialog id="AspectoViewDlg" widgetVar="AspectoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewAspectoTitle}">
             <h:form id="AspectoViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{aspectoController.selected != null}">
-                        <h:outputText value="#{bundle.ViewAspectoLabel_idASPECTO}"/>
-                        <h:outputText value="#{aspectoController.selected.idASPECTO}" title="#{bundle.ViewAspectoTitle_idASPECTO}"/>
-                        <h:outputText value="#{bundle.ViewAspectoLabel_nombre}"/>
-                        <h:outputText value="#{aspectoController.selected.nombre}" title="#{bundle.ViewAspectoTitle_nombre}"/>
-                        <h:outputText value="#{bundle.ViewAspectoLabel_CRITERIOidCRITERIO}"/>
-                        <h:outputText value="#{aspectoController.selected.CRITERIOidCRITERIO}" title="#{bundle.ViewAspectoTitle_CRITERIOidCRITERIO}"/>
-                        <h:outputText value="#{bundle.ViewAspectoLabel_ESTADOidESTADO}"/>
-                        <h:outputText value="#{aspectoController.selected.ESTADOidESTADO}" title="#{bundle.ViewAspectoTitle_ESTADOidESTADO}"/>
+                    <p:panelGrid columns="2" rendered="#{aspectoController.selected != null}" style="margin-bottom:10px">
+                        <h:outputText value="#{bundle.Label_id}"/>
+                        <h:outputText value="#{aspectoController.selected.idASPECTO}"/>
+                        <h:outputText value="#{bundle.Label_nombre}"/>
+                        <h:outputText value="#{aspectoController.selected.nombre}"/>
+                        <h:outputText value="#{bundle.Criterio}"/>
+                        <h:outputText value="#{aspectoController.selected.CRITERIOidCRITERIO.nombre}"/>
+                        <h:outputText value="#{bundle.Estado}"/>
+                        <h:outputText value="#{aspectoController.selected.ESTADOidESTADO.nombre}" />
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="AspectoViewDialog.hide()"/>
+                    <div id="botones" align="Center">
+                        <p:commandButton value="#{bundle.Close}" onclick="AspectoViewDialog.hide()"/>
+                    </div>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

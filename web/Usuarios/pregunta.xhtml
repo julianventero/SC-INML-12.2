@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <body>
+
+        <ui:composition template="./../template-usuario.xhtml">
+
+            <ui:define name="contenido">
+                contenido
+
+                <h:form id="formulario2">
+                    <p:dataTable id="datalist" value="#{muestraController.itemsEncuestaPreguntas}" var="itemm"
+                                 selectionMode="single" selection="#{muestraController.idPregunta}"
+                                 rowKey="#{itemm.idENCUESTAPREGUNTAS}"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="PM" />
+                        <p:ajax event="rowUnselect" update="PM"/>
+                        <f:facet name="header">
+                            <h:outputText  value="Encuesta-Preguntas}"/>
+                        </f:facet>
+
+                        <p:column>
+                            <h:outputText value="#{itemm.PREGUNTASidPREGUNTAS.pregunta}"/>
+                        </p:column> 
+                        <p:column>
+                            <h:outputText value="Respuesta"/>
+                        </p:column> <br></br>
+                        <f:facet name="footer">
+                            <p:outputLabel value="#{bundle.Parametro_Medicion}" for="PM" />
+                            <p:selectOneMenu id="PM" >
+                                <f:selectItems value="#{muestraController.itemsParametrosMedicion}"
+                                               var="pItem"
+                                               itemValue="#{pItem.nombre}"/>
+                            </p:selectOneMenu>  
+                        </f:facet>
+                    </p:dataTable>
+
+                </h:form>    
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -11,21 +11,21 @@
         <p:dialog id="CriterioEditDlg" widgetVar="CriterioEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditCriterioTitle}">
             <h:form id="CriterioEditForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{criterioController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditCriterioLabel_idCRITERIO}" for="idCRITERIO" />
-                        <p:inputText id="idCRITERIO" value="#{criterioController.selected.idCRITERIO}" title="#{bundle.EditCriterioTitle_idCRITERIO}" required="true" requiredMessage="#{bundle.EditCriterioRequiredMessage_idCRITERIO}"/>
-                        <p:outputLabel value="#{bundle.EditCriterioLabel_nombre}" for="nombre" />
-                        <p:inputText id="nombre" value="#{criterioController.selected.nombre}" title="#{bundle.EditCriterioTitle_nombre}" />
-                        <p:outputLabel value="#{bundle.EditCriterioLabel_ESTADOidESTADO}" for="ESTADOidESTADO" />
-                        <p:selectOneMenu id="ESTADOidESTADO" value="#{criterioController.selected.ESTADOidESTADO}" required="true" requiredMessage="#{bundle.EditCriterioRequiredMessage_ESTADOidESTADO}">
+                    <p:panelGrid columns="2" rendered="#{criterioController.selected != null}" style="margin-bottom:10px">
+                        <p:outputLabel value="#{bundle.Label_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{criterioController.selected.nombre}" required="true" requiredMessage="#{bundle.RequiredMessage}"/>
+                        <p:outputLabel value="#{bundle.Estado}" for="ESTADOidESTADO" />
+                        <p:selectOneMenu id="ESTADOidESTADO" value="#{criterioController.selected.ESTADOidESTADO}" required="true" requiredMessage="#{bundle.RequiredMessage}">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{estadoController.itemsAvailableSelectOne}"
                                            var="ESTADOidESTADOItem"
                                            itemValue="#{ESTADOidESTADOItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{criterioController.update}" value="#{bundle.Save}" update="display,:CriterioListForm:datalist,:growl" oncomplete="handleSubmit(args, 'CriterioEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="CriterioEditDialog.hide()"/>
+                    <div id="botones" align="Center">
+                        <p:commandButton actionListener="#{criterioController.update}" value="#{bundle.Save}" update="display,:CriterioListForm:datalist,:growl" oncomplete="handleSubmit(args, 'CriterioEditDialog');" onclick="CriterioEditDialog.hide()"/>
+                        <p:commandButton value="#{bundle.Cancel}" onclick="CriterioEditDialog.hide()"/>
+                    </div>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

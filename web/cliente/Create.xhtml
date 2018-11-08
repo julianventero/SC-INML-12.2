@@ -11,26 +11,28 @@
         <p:dialog id="ClienteCreateDlg" widgetVar="ClienteCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateClienteTitle}">
             <h:form id="ClienteCreateForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{clienteController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateClienteLabel_idCLIENTE}" for="idCLIENTE" />
-                        <p:inputText id="idCLIENTE" value="#{clienteController.selected.idCLIENTE}" title="#{bundle.CreateClienteTitle_idCLIENTE}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_idCLIENTE}"/>
-                        <p:outputLabel value="#{bundle.CreateClienteLabel_nombre}" for="nombre" />
-                        <p:inputText id="nombre" value="#{clienteController.selected.nombre}" title="#{bundle.CreateClienteTitle_nombre}" />
-                        <p:outputLabel value="#{bundle.CreateClienteLabel_ESTADOidESTADO}" for="ESTADOidESTADO" />
-                        <p:selectOneMenu id="ESTADOidESTADO" value="#{clienteController.selected.ESTADOidESTADO}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_ESTADOidESTADO}">
+                    <p:panelGrid columns="2" rendered="#{clienteController.selected != null}" style="margin-bottom:10px">
+                        <p:outputLabel value="#{bundle.Label_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{clienteController.selected.nombre}" required="true" requiredMessage="#{bundle.RequiredMessage}"/>
+                        <p:outputLabel value="#{bundle.Estado}" for="ESTADOidESTADO" />
+                        <p:selectOneMenu id="ESTADOidESTADO" value="#{clienteController.selected.ESTADOidESTADO}" required="true" requiredMessage="#{bundle.RequiredMessage}">
+                            <f:selectItem itemLabel="Seleccione uno"/>
                             <f:selectItems value="#{estadoController.itemsAvailableSelectOne}"
                                            var="ESTADOidESTADOItem"
                                            itemValue="#{ESTADOidESTADOItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateClienteLabel_MUNICIPIOidMUNICIPIO}" for="MUNICIPIOidMUNICIPIO" />
-                        <p:selectOneMenu id="MUNICIPIOidMUNICIPIO" value="#{clienteController.selected.MUNICIPIOidMUNICIPIO}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_MUNICIPIOidMUNICIPIO}">
+                        <p:outputLabel value="#{bundle.Municipio}" for="MUNICIPIOidMUNICIPIO" />
+                        <p:selectOneMenu id="MUNICIPIOidMUNICIPIO" value="#{clienteController.selected.MUNICIPIOidMUNICIPIO}" required="true" requiredMessage="#{bundle.RequiredMessage}">
+                            <f:selectItem itemLabel="Seleccione uno"/>
                             <f:selectItems value="#{municipioController.itemsAvailableSelectOne}"
                                            var="MUNICIPIOidMUNICIPIOItem"
                                            itemValue="#{MUNICIPIOidMUNICIPIOItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{clienteController.create}" value="#{bundle.Save}" update="display,:ClienteListForm:datalist,:growl" oncomplete="handleSubmit(args,'ClienteCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="ClienteCreateDialog.hide()"/>
+                    <div id="botones" align="Center">
+                        <p:commandButton actionListener="#{clienteController.create}" value="#{bundle.Save}" update="display,:ClienteListForm:datalist,:growl" oncomplete="handleSubmit(args,'ClienteCreateDialog'); " onclick="ClienteCreateDialog.hide()"/>
+                        <p:commandButton value="#{bundle.Cancel}" onclick="ClienteCreateDialog.hide()"/>
+                    </div>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

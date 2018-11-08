@@ -11,13 +11,15 @@
         <p:dialog id="RegionalViewDlg" widgetVar="RegionalViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewRegionalTitle}">
             <h:form id="RegionalViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{regionalController.selected != null}">
-                        <h:outputText value="#{bundle.ViewRegionalLabel_idREGIONAL}"/>
-                        <h:outputText value="#{regionalController.selected.idREGIONAL}" title="#{bundle.ViewRegionalTitle_idREGIONAL}"/>
-                        <h:outputText value="#{bundle.ViewRegionalLabel_nombre}"/>
-                        <h:outputText value="#{regionalController.selected.nombre}" title="#{bundle.ViewRegionalTitle_nombre}"/>
+                    <p:panelGrid columns="2" rendered="#{regionalController.selected != null}" style="margin-bottom:10px">
+                        <h:outputText value="#{bundle.Label_id}"/>
+                        <h:outputText value="#{regionalController.selected.idREGIONAL}"/>
+                        <h:outputText value="#{bundle.Label_nombre}"/>
+                        <h:outputText value="#{regionalController.selected.nombre}" />
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="RegionalViewDialog.hide()"/>
+                    <div id="botones" align="Center">
+                        <p:commandButton value="#{bundle.Close}" onclick="RegionalViewDialog.hide()"/>
+                    </div>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

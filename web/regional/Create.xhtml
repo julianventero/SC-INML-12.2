@@ -11,14 +11,14 @@
         <p:dialog id="RegionalCreateDlg" widgetVar="RegionalCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateRegionalTitle}">
             <h:form id="RegionalCreateForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{regionalController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateRegionalLabel_idREGIONAL}" for="idREGIONAL" />
-                        <p:inputText id="idREGIONAL" value="#{regionalController.selected.idREGIONAL}" title="#{bundle.CreateRegionalTitle_idREGIONAL}" required="true" requiredMessage="#{bundle.CreateRegionalRequiredMessage_idREGIONAL}"/>
-                        <p:outputLabel value="#{bundle.CreateRegionalLabel_nombre}" for="nombre" />
-                        <p:inputText id="nombre" value="#{regionalController.selected.nombre}" title="#{bundle.CreateRegionalTitle_nombre}" />
+                    <p:panelGrid columns="2" rendered="#{regionalController.selected != null}" style="margin-bottom:10px">
+                        <p:outputLabel value="#{bundle.Label_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{regionalController.selected.nombre}" required="true" requiredMessage="#{bundle.RequiredMessage}"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{regionalController.create}" value="#{bundle.Save}" update="display,:RegionalListForm:datalist,:growl" oncomplete="handleSubmit(args,'RegionalCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="RegionalCreateDialog.hide()"/>
+                    <div id="botones" align="Center">
+                        <p:commandButton actionListener="#{regionalController.create}" value="#{bundle.Save}" update="display,:RegionalListForm:datalist,:growl" oncomplete="handleSubmit(args,'RegionalCreateDialog');" onclick="RegionalCreateDialog.hide()"/>
+                        <p:commandButton value="#{bundle.Cancel}" onclick="RegionalCreateDialog.hide()"/>
+                    </div>
                 </h:panelGroup>
             </h:form>
         </p:dialog>
