@@ -136,7 +136,7 @@ public class Seccional implements Serializable {
 
     @Override
     public String toString() {
-        return "modelo.Seccional[ idSECCIONAL=" + idSECCIONAL + " ]";
+        return nombre;
     }
     
 }
