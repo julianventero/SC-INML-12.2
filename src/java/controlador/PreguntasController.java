@@ -29,11 +29,12 @@ public class PreguntasController implements Serializable {
     private Preguntas selected;
     
     
-    
     @EJB
     private fachada.PreguntasFacade ejbFacadePreguntas;
     private List<Preguntas> ItemsPreguntas;
     private Preguntas selectedPreguntas;
+   
+    
     
     public PreguntasController() {
         
@@ -184,6 +185,8 @@ public class PreguntasController implements Serializable {
     public Preguntas getSelectedPreguntas() {
         return selectedPreguntas;
     }
+    
+    
 
     
 }

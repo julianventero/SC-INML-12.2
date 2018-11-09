@@ -16,17 +16,17 @@
             <img src="../Imagenes/INML.jpg"> </img>
         </div>
         
-        <div id="Usuariologin" align="center"> 
-                      
+        <div id="Login" align="center"> 
+            <h:form id="Login">
                       <p:outputLabel value="Usuario" for="usuario" />
-                      <p:inputText id="usuario"  required="true" requiredMessage="Campo necesario" placeholder="Número de cedula"/> 
+                      <p:inputText id="usuario"  value="#{usuarioController.usuario}" required="true" requiredMessage="#{bundle.RequiredMessage}" placeholder="Número de cedula"/> 
                       <br> </br>
                       <p:outputLabel value="Contraseña" for="usuario" />
-                      <p:password id="contraseña"  required="true" requiredMessage="Campo necesario"/>
+                      <p:password id="contraseña" value="#{usuarioController.contrasena}" required="true" requiredMessage="#{bundle.RequiredMessage}"/>
                       <br> </br>
-                      <p:commandButton  value="Ingresar" >
-                          
-                      </p:commandButton> <br> </br> <!--
+                      <p:commandButton   action="#{usuarioController.login}" value="Ingresar"/>
+            </h:form>      
+                       <!--
                       <h:link outcome="index.xhtml" value="Siguiente" />
                    -->
                      

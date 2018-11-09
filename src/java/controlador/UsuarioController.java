@@ -1,5 +1,6 @@
 package controlador;
 
+import static com.sun.javafx.logging.PulseLogger.addMessage;
 import modelo.Usuario;
 import controlador.util.JsfUtil;
 import controlador.util.JsfUtil.PersistAction;
@@ -27,7 +28,21 @@ public class UsuarioController implements Serializable {
     private fachada.UsuarioFacade ejbFacade;
     private List<Usuario> items = null;
     private Usuario selected;
-
+    
+  //Atributos para almacenar el usuario y contraseña del login
+    private int usuario;
+    private String contrasena;
+    
+   
+    
+    
+    public void login(){
+        System.out.println(""+usuario);
+        System.out.println(""+contrasena);
+    }
+    
+    
+    
     public UsuarioController() {
     }
 
@@ -161,5 +176,20 @@ public class UsuarioController implements Serializable {
         }
 
     }
+    
+    public int getUsuario() {
+        return usuario;
+    }
+    
+    public void setUsuario(int usuario) {
+        this.usuario = usuario;
+    }
+    
+    public String getContrasena() {
+        return contrasena;
+    }
 
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
+    }
 }

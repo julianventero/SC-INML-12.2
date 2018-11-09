@@ -79,7 +79,7 @@ public class MuestraController implements Serializable {
     public EncuestaPreguntas getItemsidEncuestaPreguntas() {
         try{
         ItemsidEncuestaPreguntas=ejbFacadeEncuestaPreguntas.traerIdEncuestaPreguntas(Encuesta.getIdENCUESTA(), idPregunta);
-        System.out.println(""+ItemsidEncuestaPreguntas);
+        //System.out.println(""+ItemsidEncuestaPreguntas);
         }
         catch(Exception e){
         }
@@ -357,10 +357,10 @@ public class MuestraController implements Serializable {
 
     public void datosRespuesta(){
         addMessage("Creado correctamente");
-        System.out.println(""+fecharealizacion);
-        System.out.println(""+idseccional);
-        System.out.println(""+idcliente);
-        System.out.println(""+idmunicipio);
+       // System.out.println(""+fecharealizacion);
+       // System.out.println(""+idseccional);
+        //System.out.println(""+idcliente);
+        //System.out.println(""+idmunicipio);
     }
     
     public void addMessage(String summary) {
