@@ -11,10 +11,12 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -28,19 +30,42 @@ public class UsuarioController implements Serializable {
     private fachada.UsuarioFacade ejbFacade;
     private List<Usuario> items = null;
     private Usuario selected;
+    //EJB para mandar los datos al facade de usuario
+    @EJB
+    private fachada.UsuarioFacade FacadeUsuario;
+    //Atributo para almacenar el usuario y contraseña del login
+    private Usuario usuario;
     
-  //Atributos para almacenar el usuario y contraseña del login
-    private int usuario;
-    private String contrasena;
-    
-   
-    
-    
-    public void login(){
-        System.out.println(""+usuario);
-        System.out.println(""+contrasena);
+    @PostConstruct
+    public void init(){
+    usuario = new Usuario();
     }
     
+    public String login(){
+        Usuario resultado_consulta;
+        String redirecion= null;
+        
+        try{
+            resultado_consulta=FacadeUsuario.login(usuario);
+            if(resultado_consulta.getCedula().toString() .equals(resultado_consulta.getCedula().toString()) && resultado_consulta.getContrasena() .equals(usuario.getContrasena()) ){
+                System.out.println("Entro al IF mirar la redireccion " +usuario.getCedula()+" "+usuario.getContrasena());
+                redirecion=".../.../.../Web Pages/Usuarios/informe.xhtml";
+            }
+            else{
+                warn();
+                System.out.println("NO entro al IF  "+usuario.getCedula()+" "+usuario.getContrasena());
+            }
+        }
+        catch(Exception e){
+        
+        }
+        return redirecion;
+    }
+    
+    
+    public void warn() {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Advertnecia", "Datos no validos"));
+    }
     
     
     public UsuarioController() {
@@ -177,19 +202,11 @@ public class UsuarioController implements Serializable {
 
     }
     
-    public int getUsuario() {
+    public Usuario getUsuario() {
         return usuario;
     }
     
-    public void setUsuario(int usuario) {
+    public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
-    }
-    
-    public String getContrasena() {
-        return contrasena;
-    }
-
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
     }
 }

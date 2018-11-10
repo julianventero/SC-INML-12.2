@@ -18,11 +18,13 @@
         
         <div id="Login" align="center"> 
             <h:form id="Login">
+                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+                    
                       <p:outputLabel value="Usuario" for="usuario" />
-                      <p:inputText id="usuario"  value="#{usuarioController.usuario}" required="true" requiredMessage="#{bundle.RequiredMessage}" placeholder="Número de cedula"/> 
+                      <p:inputText id="usuario"  value="#{usuarioController.usuario.cedula}" required="true" requiredMessage="#{bundle.RequiredMessage}" placeholder="Número de cedula"/> 
                       <br> </br>
                       <p:outputLabel value="Contraseña" for="usuario" />
-                      <p:password id="contraseña" value="#{usuarioController.contrasena}" required="true" requiredMessage="#{bundle.RequiredMessage}"/>
+                      <p:password id="contraseña" value="#{usuarioController.usuario.contrasena}" required="true" requiredMessage="#{bundle.RequiredMessage}"/>
                       <br> </br>
                       <p:commandButton   action="#{usuarioController.login}" value="Ingresar"/>
             </h:form>      
