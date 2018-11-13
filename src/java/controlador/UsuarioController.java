@@ -48,16 +48,16 @@ public class UsuarioController implements Serializable {
         try{
             resultado_consulta=FacadeUsuario.login(usuario);
             if(resultado_consulta.getCedula().toString() .equals(resultado_consulta.getCedula().toString()) && resultado_consulta.getContrasena() .equals(usuario.getContrasena()) ){
-                System.out.println("Entro al IF mirar la redireccion " +usuario.getCedula()+" "+usuario.getContrasena());
-                redirecion=".../.../.../Web Pages/Usuarios/informe.xhtml";
+                
+                redirecion="/Usuarios/encuesta.xhtml";
             }
             else{
                 warn();
-                System.out.println("NO entro al IF  "+usuario.getCedula()+" "+usuario.getContrasena());
+                
             }
         }
         catch(Exception e){
-        
+        warn();
         }
         return redirecion;
     }

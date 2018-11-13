@@ -33,5 +33,5 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
     public Usuario login( Usuario datos_login){
         return (Usuario) em.createNativeQuery("select cedula, contrasena from Usuario u where u.cedula = ?1 and u.contrasena = ?2", Usuario.class).setParameter(1, datos_login.getCedula()).setParameter(2, datos_login.getContrasena()).getSingleResult();
     }
-
+    
 }
