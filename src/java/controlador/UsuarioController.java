@@ -47,13 +47,20 @@ public class UsuarioController implements Serializable {
         
         try{
             resultado_consulta=FacadeUsuario.login(usuario);
-            if(resultado_consulta.getCedula().toString() .equals(resultado_consulta.getCedula().toString()) && resultado_consulta.getContrasena() .equals(usuario.getContrasena()) ){
+            if((resultado_consulta.getCedula().toString() .equals(usuario.getCedula().toString())) && (resultado_consulta.getContrasena() .equals(usuario.getContrasena())) ){
                 
-                redirecion="/Usuarios/encuesta.xhtml";
+                if(resultado_consulta.getROLidROL().getIdROL() == 1){
+                    
+                    redirecion="/criterio/List.xhtml";
+                }
+                else{
+                
+                    redirecion="/Usuarios/encuesta.xhtml";
+                }
+                
             }
             else{
                 warn();
-                
             }
         }
         catch(Exception e){
