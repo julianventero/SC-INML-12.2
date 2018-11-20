@@ -1,0 +1,630 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporte4" language="groovy" pageWidth="1069" pageHeight="607" orientation="Landscape" columnWidth="1029" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="71ff31a5-4bce-48c8-ad0b-df575d2fadcf">
+	<property name="ireport.zoom" value="0.68301345536508"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TH" mode="Opaque" backcolor="#73B0E6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_CH" mode="Opaque" backcolor="#CFDBE6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="prueba" uuid="b7d56b21-e632-4cb5-95a5-3b304944bb05">
+		<parameter name="servicio" class="java.lang.String">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[select h.nombre as ENCUESTA, d.pregunta as PREGUNTA,f.nombre as CRITERIO, e.nombre as ASPECTO, b.nombre as PARAMETROS_MEDICION, count(*) as TOTAL from RESPUESTA a inner join PARAMETROS_MEDICION b on (a.PARAMETROS_MEDICION_idPARAMETROS_MEDICION=b.idPARAMETROS_MEDICION)
+inner join PREGUNTAS_PARAMETROS_MEDICION c on(b.idPARAMETROS_MEDICION=c.PARAMETROS_MEDICION_idPARAMETROS_MEDICION)
+inner join PREGUNTAS d on (c.PREGUNTAS_idPREGUNTAS=d.idPREGUNTAS)
+inner join ASPECTO e on (d.ASPECTO_idASPECTO=e.idASPECTO)
+inner join CRITERIO f on (e.CRITERIO_idCRITERIO=f.idCRITERIO)
+inner join ENCUESTA_PREGUNTAS g on(d.idPREGUNTAS=g.PREGUNTAS_idPREGUNTAS)
+inner join ENCUESTA h on(g.ENCUESTA_idENCUESTA=h.idENCUESTA)
+inner join SERVICIO_FORENSE i on(h.SERVICIO_FORENSE_idSERVICIO_FORENSE=i.idSERVICIO_FORENSE)
+where (i.nombre= $P{servicio})  and(a.PARAMETROS_MEDICION_idPARAMETROS_MEDICION!=37)
+group by b.idPARAMETROS_MEDICION ;]]>
+		</queryString>
+		<field name="ENCUESTA" class="java.lang.String"/>
+		<field name="PREGUNTA" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="CRITERIO" class="java.lang.String"/>
+		<field name="ASPECTO" class="java.lang.String"/>
+		<field name="PARAMETROS_MEDICION" class="java.lang.String"/>
+		<field name="TOTAL" class="java.lang.Long"/>
+		<filterExpression><![CDATA[$P{servicio}]]></filterExpression>
+	</subDataset>
+	<subDataset name="Preguntas_anuladas2" uuid="0d85f9f0-f7e5-4d5d-acc5-ab9f189d341c">
+		<parameter name="servicio_forensee" class="java.lang.String">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<parameter name="municipioo" class="java.lang.String">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<parameter name="fecha_inicioo" class="java.util.Date">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<parameter name="fecha_finn" class="java.util.Date">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[Select (select count(*) from RESPUESTA)-(select count(*) from RESPUESTA a inner join PARAMETROS_MEDICION b on (a.PARAMETROS_MEDICION_idPARAMETROS_MEDICION=b.idPARAMETROS_MEDICION)
+inner join PREGUNTAS_PARAMETROS_MEDICION c on(b.idPARAMETROS_MEDICION=c.PARAMETROS_MEDICION_idPARAMETROS_MEDICION)
+inner join PREGUNTAS d on (c.PREGUNTAS_idPREGUNTAS=d.idPREGUNTAS)
+inner join ASPECTO e on (d.ASPECTO_idASPECTO=e.idASPECTO)
+inner join CRITERIO f on (e.CRITERIO_idCRITERIO=f.idCRITERIO)
+inner join ENCUESTA_PREGUNTAS g on(d.idPREGUNTAS=g.PREGUNTAS_idPREGUNTAS)
+inner join ENCUESTA h on(g.ENCUESTA_idENCUESTA=h.idENCUESTA)
+inner join SERVICIO_FORENSE i on(h.SERVICIO_FORENSE_idSERVICIO_FORENSE=i.idSERVICIO_FORENSE)
+where (a.MUNICIPIO_idMUNICIPIO= (select idMUNICIPIO from MUNICIPIO where nombre=$P{municipioo}))  and (i.nombre=$P{servicio_forensee})
+and (a.PARAMETROS_MEDICION_idPARAMETROS_MEDICION!=37) and (a.fecha_realizacion between $P{fecha_inicioo} and $P{fecha_finn})) as ANULADAS;]]>
+		</queryString>
+		<field name="ANULADAS" class="java.lang.Long"/>
+	</subDataset>
+	<parameter name="servicio_forense" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fecha_inicio" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fecha_fin" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="municipio" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\julia\\Desktop\\INML\\SC-INML-12.2\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select h.nombre as ENCUESTA, d.pregunta as PREGUNTA,f.nombre as CRITERIO, e.nombre as ASPECTO, b.nombre as PARAMETROS_MEDICION, count(*) as TOTAL from RESPUESTA a inner join PARAMETROS_MEDICION b on (a.PARAMETROS_MEDICION_idPARAMETROS_MEDICION=b.idPARAMETROS_MEDICION)
+inner join PREGUNTAS_PARAMETROS_MEDICION c on(b.idPARAMETROS_MEDICION=c.PARAMETROS_MEDICION_idPARAMETROS_MEDICION)
+inner join PREGUNTAS d on (c.PREGUNTAS_idPREGUNTAS=d.idPREGUNTAS)
+inner join ASPECTO e on (d.ASPECTO_idASPECTO=e.idASPECTO)
+inner join CRITERIO f on (e.CRITERIO_idCRITERIO=f.idCRITERIO)
+inner join ENCUESTA_PREGUNTAS g on(d.idPREGUNTAS=g.PREGUNTAS_idPREGUNTAS)
+inner join ENCUESTA h on(g.ENCUESTA_idENCUESTA=h.idENCUESTA)
+inner join SERVICIO_FORENSE i on(h.SERVICIO_FORENSE_idSERVICIO_FORENSE=i.idSERVICIO_FORENSE)
+where (a.MUNICIPIO_idMUNICIPIO= (select idMUNICIPIO from MUNICIPIO where nombre=$P{municipio}))  and (i.nombre=$P{servicio_forense})
+and (a.PARAMETROS_MEDICION_idPARAMETROS_MEDICION!=37) and (a.fecha_realizacion between $P{fecha_inicio} and $P{fecha_fin})
+group by  g.PREGUNTAS_idPREGUNTAS,b.idPARAMETROS_MEDICION;]]>
+	</queryString>
+	<field name="ENCUESTA" class="java.lang.String"/>
+	<field name="PREGUNTA" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CRITERIO" class="java.lang.String"/>
+	<field name="ASPECTO" class="java.lang.String"/>
+	<field name="PARAMETROS_MEDICION" class="java.lang.String"/>
+	<field name="TOTAL" class="java.lang.Long"/>
+	<title>
+		<band height="225" splitType="Stretch">
+			<frame>
+				<reportElement uuid="b11f3301-5daf-4352-8ca4-7a33632eb3c3" mode="Opaque" x="138" y="0" width="891" height="65" forecolor="#006699" backcolor="#006699"/>
+				<staticText>
+					<reportElement uuid="ca6e5dbc-41a7-4c81-9ab0-8595414fc318" style="Title" x="128" y="0" width="619" height="65"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="28" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Instituto Nacional de Medicina Legal y Ciencias Forenses Regional Occidente]]></text>
+				</staticText>
+			</frame>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="4b4fe4d2-0c3a-4bb6-8d47-cd138acea960" style="Detail" positionType="Float" x="20" y="136" width="267" height="39" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="16" isBold="true" pdfFontName="Helvetica"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ENCUESTA}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement uuid="efea5660-4d1a-40a9-ade5-433932bd08ea" x="20" y="0" width="153" height="65"/>
+				<imageExpression><![CDATA["C:\\Users\\julia\\Desktop\\INML\\SC-INML-12.2\\INML2.jpg"]]></imageExpression>
+			</image>
+			<componentElement>
+				<reportElement uuid="456aac3f-1045-46da-a030-747773a5ccd0" key="table 4" style="table 4" x="310" y="136" width="54" height="39"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Preguntas_anuladas2" uuid="3aede427-0b79-458e-bdcc-b7810fcc96ea">
+						<datasetParameter name="servicio_forensee">
+							<datasetParameterExpression><![CDATA[$P{servicio_forense}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="municipioo">
+							<datasetParameterExpression><![CDATA[$P{municipio}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="fecha_inicioo">
+							<datasetParameterExpression><![CDATA[$P{fecha_inicio}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="fecha_finn">
+							<datasetParameterExpression><![CDATA[$P{fecha_fin}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="82" uuid="67809b5b-347a-4453-b11f-4d803eac38fa">
+						<jr:columnHeader height="34" rowSpan="1">
+							<staticText>
+								<reportElement uuid="27d6f8e1-eb52-4bec-bce2-5badd1aebe42" x="0" y="0" width="82" height="34"/>
+								<box>
+									<pen lineWidth="0.75"/>
+									<topPen lineWidth="0.75"/>
+									<leftPen lineWidth="0.75"/>
+									<bottomPen lineWidth="0.75"/>
+									<rightPen lineWidth="0.75"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Seccional]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="24" rowSpan="1">
+							<staticText>
+								<reportElement uuid="0be89cc3-0cbf-4e7f-934e-f609aa8c4ea5" x="0" y="0" width="82" height="24"/>
+								<box>
+									<pen lineWidth="0.0" lineStyle="Dashed"/>
+									<topPen lineWidth="0.75" lineStyle="Solid"/>
+									<leftPen lineWidth="0.75" lineStyle="Solid"/>
+									<bottomPen lineWidth="0.75" lineStyle="Solid"/>
+									<rightPen lineWidth="0.75" lineStyle="Solid"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12"/>
+								</textElement>
+								<text><![CDATA[Risaralda]]></text>
+							</staticText>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="ce6a3369-db84-4682-8a77-111c31089447">
+						<jr:columnHeader height="34" rowSpan="1">
+							<staticText>
+								<reportElement uuid="7930392f-6e89-4f83-b469-705100384b0d" x="0" y="0" width="90" height="34"/>
+								<box>
+									<pen lineWidth="0.75"/>
+									<topPen lineWidth="0.75"/>
+									<leftPen lineWidth="0.75"/>
+									<bottomPen lineWidth="0.75"/>
+									<rightPen lineWidth="0.75"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Municipio]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="24" rowSpan="1">
+							<staticText>
+								<reportElement uuid="565994ac-ecb9-4e8f-ad44-9b052b41cdae" x="0" y="0" width="90" height="24"/>
+								<box>
+									<pen lineWidth="0.0" lineStyle="Dashed"/>
+									<topPen lineWidth="0.75" lineStyle="Solid"/>
+									<leftPen lineWidth="0.75" lineStyle="Solid"/>
+									<bottomPen lineWidth="0.75" lineStyle="Solid"/>
+									<rightPen lineWidth="0.75" lineStyle="Solid"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12"/>
+								</textElement>
+								<text><![CDATA[Pereira]]></text>
+							</staticText>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="78" uuid="b28473cd-2f89-4ca6-b903-d6e20919c421">
+						<jr:columnHeader height="34" rowSpan="1">
+							<staticText>
+								<reportElement uuid="64d97a52-55da-4168-8b63-adbe203c7e6a" x="0" y="0" width="78" height="34"/>
+								<box>
+									<pen lineWidth="0.75"/>
+									<topPen lineWidth="0.75"/>
+									<leftPen lineWidth="0.75"/>
+									<bottomPen lineWidth="0.75"/>
+									<rightPen lineWidth="0.75"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Fecha de inicio]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="24" rowSpan="1">
+							<staticText>
+								<reportElement uuid="42c83d23-5873-4f36-b548-7d5188012224" x="0" y="0" width="78" height="24"/>
+								<box>
+									<pen lineWidth="0.0" lineStyle="Dashed"/>
+									<topPen lineWidth="0.75" lineStyle="Solid"/>
+									<leftPen lineWidth="0.75" lineStyle="Solid"/>
+									<bottomPen lineWidth="0.75" lineStyle="Solid"/>
+									<rightPen lineWidth="0.75" lineStyle="Solid"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12"/>
+								</textElement>
+								<text><![CDATA[09/05/2018]]></text>
+							</staticText>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="3d72305a-adfa-4135-a082-09d09f742750">
+						<jr:columnHeader height="34" rowSpan="1">
+							<staticText>
+								<reportElement uuid="1a13cbae-4491-41e7-bb2f-c67b5b4dbab2" x="0" y="0" width="90" height="34"/>
+								<box>
+									<pen lineWidth="0.75"/>
+									<topPen lineWidth="0.75"/>
+									<leftPen lineWidth="0.75"/>
+									<bottomPen lineWidth="0.75"/>
+									<rightPen lineWidth="0.75"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Fecha de finalización]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="24" rowSpan="1">
+							<staticText>
+								<reportElement uuid="0f3fcd99-c6e0-4eb3-afab-26132c17112e" x="0" y="0" width="90" height="24"/>
+								<box>
+									<pen lineWidth="0.0" lineStyle="Dashed"/>
+									<topPen lineWidth="0.75" lineStyle="Solid"/>
+									<leftPen lineWidth="0.75" lineStyle="Solid"/>
+									<bottomPen lineWidth="0.75" lineStyle="Solid"/>
+									<rightPen lineWidth="0.75" lineStyle="Solid"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12"/>
+								</textElement>
+								<text><![CDATA[10/31/2018]]></text>
+							</staticText>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="114" uuid="2115fc31-9859-48f3-b995-62a9a5c8962d">
+						<jr:columnHeader height="34" rowSpan="1">
+							<staticText>
+								<reportElement uuid="cf9c7f26-e6c0-4151-be3b-0683b7796d7c" x="0" y="0" width="114" height="34"/>
+								<box>
+									<pen lineWidth="0.75"/>
+									<topPen lineWidth="0.75"/>
+									<leftPen lineWidth="0.75"/>
+									<bottomPen lineWidth="0.75"/>
+									<rightPen lineWidth="0.75"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Total de encuestas realizadas]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="24" rowSpan="1">
+							<textField>
+								<reportElement uuid="98856eae-5486-4dcc-9c8c-f1186a8f565b" x="0" y="0" width="114" height="24"/>
+								<box>
+									<pen lineWidth="0.75"/>
+									<topPen lineWidth="0.75"/>
+									<leftPen lineWidth="0.75"/>
+									<bottomPen lineWidth="0.75"/>
+									<rightPen lineWidth="0.75"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+									<font fontName="Arial" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[11]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="111" uuid="c46e2bb6-b12d-4465-8bd7-733c91f9e33c">
+						<jr:columnHeader height="34" rowSpan="1">
+							<staticText>
+								<reportElement uuid="35aa9cd7-0db1-4458-bcbe-5247cba4e31a" x="0" y="0" width="111" height="34"/>
+								<box>
+									<pen lineWidth="0.75"/>
+									<topPen lineWidth="0.75"/>
+									<leftPen lineWidth="0.75"/>
+									<bottomPen lineWidth="0.75"/>
+									<rightPen lineWidth="0.75"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Total de preguntas realizadas]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="24" rowSpan="1">
+							<textField>
+								<reportElement uuid="fda536d4-9a76-465f-8da9-f20284ea53e5" x="0" y="0" width="111" height="24"/>
+								<box>
+									<pen lineWidth="0.75"/>
+									<topPen lineWidth="0.75"/>
+									<leftPen lineWidth="0.75"/>
+									<bottomPen lineWidth="0.75"/>
+									<rightPen lineWidth="0.75"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+									<font fontName="Arial" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[88]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="116" uuid="9fc1fcfe-2c00-4d19-8449-0c86622547b6">
+						<jr:columnHeader height="34" rowSpan="1">
+							<staticText>
+								<reportElement uuid="fc433e46-95d2-4c37-a749-46729a217ef4" x="0" y="0" width="116" height="34"/>
+								<box>
+									<pen lineWidth="0.75"/>
+									<topPen lineWidth="0.75"/>
+									<leftPen lineWidth="0.75"/>
+									<bottomPen lineWidth="0.75"/>
+									<rightPen lineWidth="0.75"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Total de preguntas anuladas]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 4_TD" height="24" rowSpan="1">
+							<textField>
+								<reportElement uuid="3c40dbd4-c500-4ce4-9413-f8c511f5b845" x="0" y="0" width="116" height="24"/>
+								<box>
+									<pen lineWidth="0.75"/>
+									<topPen lineWidth="0.75"/>
+									<leftPen lineWidth="0.75"/>
+									<bottomPen lineWidth="0.75"/>
+									<rightPen lineWidth="0.75"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{ANULADAS}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<staticText>
+				<reportElement uuid="f66d1dee-a5af-4274-8b4f-94535682d6dc" x="0" y="82" width="1029" height="43" forecolor="#999999"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Informe Estadístico de las Encuestas de Sastisfacción Autoriades]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="ddc0eed8-7e4a-4a1b-b4f3-5343f00049b7" style="Column header" positionType="Float" x="20" y="0" width="502" height="20" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true" pdfFontName="Helvetica"/>
+				</textElement>
+				<text><![CDATA[PREGUNTA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="aeb9d56e-e405-4f0c-8176-957f6064a861" style="Column header" positionType="Float" x="967" y="0" width="41" height="20" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true" pdfFontName="Helvetica"/>
+				</textElement>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="68e13449-a1ac-420d-a3c5-c7f7fc49cdbd" style="Column header" positionType="Float" x="662" y="0" width="95" height="20" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true" pdfFontName="Helvetica"/>
+				</textElement>
+				<text><![CDATA[ASPECTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a1ba8096-f776-4a34-a2a4-9bc806d17bda" style="Column header" positionType="Float" x="773" y="0" width="164" height="20" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true" pdfFontName="Helvetica"/>
+				</textElement>
+				<text><![CDATA[PARAMETRO DE MEDICIÓN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="961f272b-2563-488a-96cc-cdec8f208dcc" style="Column header" positionType="Float" x="562" y="0" width="84" height="19" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true" pdfFontName="Helvetica"/>
+				</textElement>
+				<text><![CDATA[CRITERIO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="41" splitType="Stretch">
+			<line>
+				<reportElement uuid="87c6ae89-d4e2-4b77-8bbf-33b0e5b0ee1f" positionType="FixRelativeToBottom" x="550" y="32" width="459" height="2"/>
+			</line>
+			<textField>
+				<reportElement uuid="19ec5846-f7b6-4bfc-8f03-a26530158775" x="794" y="1" width="97" height="31"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PARAMETROS_MEDICION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ac117e27-84d0-400a-a19f-a28427c77b43" x="965" y="1" width="42" height="30"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TOTAL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="774b7754-77b9-4c00-9c06-dfb7bee87bc3" x="676" y="1" width="81" height="30"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ASPECTO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="51c8b435-f509-427d-b655-cd6c3412abd9" x="565" y="1" width="81" height="30"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CRITERIO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="e3600f9f-e673-443b-861c-e3c4f5bc3341" x="20" y="-1" width="492" height="35"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PREGUNTA}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="9" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="24" splitType="Stretch">
+			<frame>
+				<reportElement uuid="d077f764-be5f-4bea-9bd3-a668107314d9" mode="Opaque" x="20" y="8" width="1009" height="16" forecolor="#D0B48E" backcolor="#006699"/>
+				<textField evaluationTime="Report">
+					<reportElement uuid="e8f4bc74-b9bf-4c18-b7ce-01865a7c5862" style="Column header" x="753" y="0" width="122" height="16" forecolor="#FFFFFF"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="false" pdfFontName="Helvetica"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="c015ba8a-1772-48ad-9563-d7350316ce82" style="Column header" x="642" y="0" width="111" height="16" forecolor="#FFFFFF"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="false" pdfFontName="Helvetica"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement uuid="9976cf9a-f3b9-4e13-aece-bdd74d3b0b9a" style="Column header" x="18" y="0" width="197" height="16" forecolor="#FFFFFF"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="false" pdfFontName="Helvetica"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+</jasperReport>

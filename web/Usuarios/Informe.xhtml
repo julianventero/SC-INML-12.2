@@ -26,18 +26,18 @@
                     <p:panelGrid columns="2" rendered="#{muestraController.selected != null}">
                         
                         <p:outputLabel value="#{bundle.Servicio_Forense}" for="SERVICIOFORENSEidSERVICIOFORENSE"  />
-                        <p:selectOneMenu id="SERVICIOFORENSEidSERVICIOFORENSE" value="#{muestraController.servicio}" required="true" requiredMessage="#{bundle.RequiredMessage}" >
+                        <p:selectOneMenu id="SERVICIOFORENSEidSERVICIOFORENSE" value="#{muestraController.servicio_forense}" required="true" requiredMessage="#{bundle.RequiredMessage}" >
                             <f:selectItem itemLabel="Seleccione uno" />
                             <f:selectItems value="#{servicioForenseController.itemsAvailableSelectOne}"
                                            var="SERVICIOFORENSEidSERVICIOFORENSEItem"
                                            itemValue="#{SERVICIOFORENSEidSERVICIOFORENSEItem}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="Fecha inicio" for="fechaMuestra" />
-                        <p:calendar id="fechaMuestra" pattern="MM/dd/yyyy" value="#{muestraController.selected.fechaMuestra}" showOn="button" required="true" requiredMessage="#{bundle.RequiredMessage}"/>
+                        <p:calendar id="fechaMuestra" pattern="MM/dd/yyyy" value="#{muestraController.fecha_inicio}" showOn="button" required="true" requiredMessage="#{bundle.RequiredMessage}"/>
                         <p:outputLabel value="Fecha de finalización" for="fechaMuestra2" />
-                        <p:calendar id="fechaMuestra2" pattern="MM/dd/yyyy" value="#{muestraController.selected.fechaMuestra}" showOn="button" required="true" requiredMessage="#{bundle.RequiredMessage}"/>
+                        <p:calendar id="fechaMuestra2" pattern="MM/dd/yyyy" value="#{muestraController.fecha_fin}" showOn="button" required="true" requiredMessage="#{bundle.RequiredMessage}"/>
                         <p:outputLabel value="#{bundle.Municipio}" for="MUNICIPIOidMUNICIPIO" />
-                        <p:selectOneMenu id="MUNICIPIOidMUNICIPIO"  required="true" requiredMessage="#{bundle.RequiredMessage}">
+                        <p:selectOneMenu id="MUNICIPIOidMUNICIPIO"  required="true" value="#{muestraController.municipio}" requiredMessage="#{bundle.RequiredMessage}">
                             <f:selectItem itemLabel="Seleccione uno"/>
                             <f:selectItems value="#{municipioController.itemsAvailableSelectOne}"
                                            var="MUNICIPIOidMUNICIPIOItem"
@@ -45,7 +45,7 @@
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <div id="botones" align="Center">
-                        <p:commandButton actionListener="#{muestraController.create}" value="Aceptar" update="display,:growl" oncomplete="handleSubmit(args,'MuestraCreateDialog');" onclick="MuestraCreateDialog.hide()"/>
+                        <p:commandButton actionListener="#{muestraController.creareporte()}" value="Aceptar" update="display,:growl" oncomplete="handleSubmit(args,'MuestraCreateDialog');" onclick="MuestraCreateDialog.hide()"/>
                         <p:commandButton value="#{bundle.Cancel}" onclick="MuestraCreateDialog.hide()"/>
                     </div>    
                 </h:panelGroup>

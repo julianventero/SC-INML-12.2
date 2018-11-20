@@ -1,40 +1,133 @@
 package controlador;
 
-import static com.sun.javafx.logging.PulseLogger.addMessage;
-import modelo.Muestra;
+
+import com.lowagie.text.pdf.PdfWriter;
 import controlador.util.JsfUtil;
 import controlador.util.JsfUtil.PersistAction;
 import fachada.EncuestaFacade;
 import fachada.MuestraFacade;
-
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.ejb.EJB;
-import javax.ejb.EJBException;
-import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.FacesConverter;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+
 import modelo.Cliente;
 import modelo.Encuesta;
 import modelo.EncuestaPreguntas;
+import modelo.Muestra;
 import modelo.Municipio;
 import modelo.ParametrosMedicion;
-import modelo.PreguntasParametrosMedicion;
 import modelo.Respuesta;
 import modelo.Seccional;
 import modelo.ServicioForense;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.engine.export.JRXlsExporter;
+import net.sf.jasperreports.engine.export.JRPdfExporterParameter;
+import net.sf.jasperreports.engine.util.JRFontNotFoundException;
+import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
+import javax.faces.event.PhaseEvent;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServlet;
+import javax.annotation.PostConstruct;
+import static jxl.biff.BaseCellFeatures.logger;
+import java.util.List;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.ejb.EJBException;
+import javax.faces.component.UIComponent;
+import javax.faces.convert.Converter;
+import javax.faces.convert.FacesConverter;
+import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
+
+
+
+
+
+
+
+
 
 @Named("muestraController")
 @SessionScoped
 public class MuestraController implements Serializable {
+
+    /**
+     * @return the fecha_inicio
+     */
+    public Date getFecha_inicio() {
+        return fecha_inicio;
+    }
+
+    /**
+     * @param fecha_inicio the fecha_inicio to set
+     */
+    public void setFecha_inicio(Date fecha_inicio) {
+        this.fecha_inicio = fecha_inicio;
+    }
+
+    /**
+     * @return the fecha_fin
+     */
+    public Date getFecha_fin() {
+        return fecha_fin;
+    }
+
+    /**
+     * @param fecha_fin the fecha_fin to set
+     */
+    public void setFecha_fin(Date fecha_fin) {
+        this.fecha_fin = fecha_fin;
+    }
+
+    /**
+     * @return the municipio
+     */
+    public String getMunicipio() {
+        return municipio;
+    }
+
+    /**
+     * @param municipio the municipio to set
+     */
+    public void setMunicipio(String municipio) {
+        this.municipio = municipio;
+    }
+
+    /**
+     * @return the servicio_forense
+     */
+    public String getServicio_forense() {
+        return servicio_forense;
+    }
+
+    /**
+     * @param servicio_forense the servicio_forense to set
+     */
+    public void setServicio_forense(String servicio_forense) {
+        this.servicio_forense = servicio_forense;
+    }
 
     @EJB
     private fachada.MuestraFacade ejbFacade;
@@ -75,6 +168,13 @@ public class MuestraController implements Serializable {
     private List<ParametrosMedicion> ItemsParametrosMedicion;
     private ParametrosMedicion selectedParametrosMedicion;
 
+    //Atributos para guardar los datos del informe estadistico
+    private Date fecha_inicio;
+    private Date fecha_fin;
+    private String municipio;
+    private String servicio_forense;
+    
+    
     //Metodo para traer el ID de la tabla EncuestaPreguntas,de cada pregunta que seleccionen en la tabla
     public EncuestaPreguntas getItemsidEncuestaPreguntas() {
         try{
@@ -392,4 +492,95 @@ public class MuestraController implements Serializable {
     }
 
     
-}
+    
+    public void creareporte (){
+    
+    FacesContext fcontext = FacesContext.getCurrentInstance();
+    Connection conexion = null;
+    String nombreReporte ="reporte4";
+    try{
+        HttpServletResponse response = null;
+        String tipoSalida = "pdf";
+        String nrd = "";
+        //se establece la conexión
+        Context ctx = new InitialContext();
+        DataSource ds = (DataSource) ctx.lookup("java:app/ee");
+        conexion = ds.getConnection();
+        HashMap parametros = new HashMap();
+        parametros = agregarParametrosCD(parametros);
+          if("reporte4".equals(nombreReporte)){
+            tipoSalida = "pdf";
+              if(fecha_inicio != null){
+                  parametros.put("fecha_inicio",fecha_inicio);
+              }
+              if(fecha_fin !=null){
+                   parametros.put("fecha_fin",fecha_fin);
+              }
+              if(municipio !=null){
+                  parametros.put("municipio",municipio);
+              }
+              if(servicio_forense !=null){
+                  parametros.put("servicio_forense",servicio_forense);
+              }
+          }
+          
+          ServletContext theApplicationsServeletContext =(ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+          String rutaArchivo = theApplicationsServeletContext.getRealPath("/reportes") + File.separator;
+          String reporte =rutaArchivo + nombreReporte + nrd + ".jasper";
+          parametros.put("SUBREPORT_DIR",rutaArchivo);
+          JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, parametros, conexion);
+          ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
+          response = (HttpServletResponse) ectx.getResponse();
+        
+          response.setHeader("content-disposition", "attachment;filename=" + nombreReporte + "." + tipoSalida);
+          if(tipoSalida.equals("pdf")){
+             JRPdfExporter exporter = new JRPdfExporter();
+             response.setContentType("application/pdf");
+             exporter.setParameter(JRPdfExporterParameter.OUTPUT_FILE_NAME, nombreReporte + "." + tipoSalida);
+             exporter.setParameter(JRPdfExporterParameter.JASPER_PRINT, jasperPrint);
+             exporter.setParameter(JRPdfExporterParameter.OUTPUT_STREAM, response.getOutputStream());
+             exporter.setParameter(JRPdfExporterParameter.METADATA_AUTHOR, "ESTUDIANTES IST");
+             exporter.setParameter(JRPdfExporterParameter.PERMISSIONS, new Integer(PdfWriter.ALLOW_PRINTING | PdfWriter.HideToolbar | PdfWriter.HideToolbar));
+             exporter.setParameter(JRPdfExporterParameter.OWNER_PASSWORD, "");
+             exporter.setParameter(JRPdfExporterParameter.IS_128_BIT_KEY, Boolean.TRUE);
+             exporter.exportReport();
+             
+          }
+          fcontext.responseComplete();
+
+    }
+    catch (FileNotFoundException ex){
+        JsfUtil.addErrorMessage(ex, "Error al momento de imprimir, reporte no encontrado");
+    }
+    catch (NamingException | SQLException | JRException |IOException ex){
+        JsfUtil.addErrorMessage(ex, "Error al momento de imprimir ");
+    }
+    catch (JRFontNotFoundException ex){
+        JsfUtil.addErrorMessage(ex,"Fuente no encontrada. " );
+    }
+    catch (Exception ex){
+        System.out.println(ex);
+        JsfUtil.addErrorMessage(ex, "Error al momento de imprimir. ");
+    }
+    finally{
+        try {
+            if(conexion != null){
+                conexion.close();
+            }
+        }catch(SQLException ex){
+        }catch(Exception ex){
+        }
+    }
+
+} 
+
+    private HashMap agregarParametrosCD(HashMap parametros) {
+        SimpleDateFormat sdfy = new SimpleDateFormat ("dd/MM/yyyy");
+        SimpleDateFormat sdfx = new SimpleDateFormat ("dd 'de' MMMM 'de' yyyy", new Locale("es"));
+        parametros.put("fechaHoraElabora", sdfy.format(new Date()));
+        parametros.put("TituloReporte", "XXXXXXXXXXX");
+        return parametros;
+    }
+
+    
+    }
